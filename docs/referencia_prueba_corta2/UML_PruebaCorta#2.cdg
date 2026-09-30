@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="uml_pruebacorta2">
+  <ClassDiagramComponents>
+    <Class name="BMW" package="uml_pruebacorta2" visibility="public" xPosition="286.0" yPosition="51.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="CarType" name="type"/>
+          <Argument type="String" name="carID"/>
+          <Argument type="int" name="maxSpeed"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="Car" package="uml_pruebacorta2" visibility="public" isAbstract="true" xPosition="747.0" yPosition="101.0">
+      <Fields>
+        <Field name="type" type="CarType" visibility="private"/>
+        <Field name="carID" type="String" visibility="private"/>
+        <Field name="maxSpeed" type="int" visibility="private"/>
+        <Field name="currentSpeed" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="CarType" name="type"/>
+          <Argument type="String" name="carID"/>
+          <Argument type="int" name="maxSpeed"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getType" returnType="CarType" visibility="public"/>
+        <Method name="getCarID" returnType="String" visibility="public"/>
+        <Method name="getMaxSpeed" returnType="int" visibility="public"/>
+        <Method name="getTarifaHora" returnType="double" visibility="public"/>
+        <Method name="increaseSpeed" returnType="int" visibility="public">
+          <Argument type="int" name="dv"/>
+        </Method>
+        <Method name="decreaseSpeed" returnType="int" visibility="public">
+          <Argument type="int" name="dv"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="CardPayment" package="uml_pruebacorta2" visibility="public" xPosition="221.0" yPosition="578.0">
+      <Fields>
+        <Field name="marca" type="String" visibility="private"/>
+        <Field name="ultimos4Digitos" type="String" visibility="private"/>
+        <Field name="autorizacion" type="String" visibility="private"/>
+        <Field name="aprobado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="marca"/>
+          <Argument type="String" name="ultimos4Digitos"/>
+          <Argument type="String" name="autorizacion"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="calcularAjuste" returnType="double" visibility="public">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+        <Method name="calcularTotal" returnType="double" visibility="public">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+        <Method name="procesar" returnType="boolean" visibility="public">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+        <Method name="isAprobado" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="CashPayment" package="uml_pruebacorta2" visibility="public" xPosition="1245.0" yPosition="643.0">
+      <Fields>
+        <Field name="montoRecibido" type="double" visibility="private"/>
+        <Field name="vuelto" type="double" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="double" name="montoRecibido"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="calcularAjuste" returnType="double" visibility="public">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+        <Method name="calcularTotal" returnType="double" visibility="public">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+        <Method name="procesar" returnType="boolean" visibility="public">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+        <Method name="getVuelto" returnType="double" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Ford" package="uml_pruebacorta2" visibility="public" xPosition="1275.0" yPosition="81.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="CarType" name="type"/>
+          <Argument type="String" name="carID"/>
+          <Argument type="int" name="maxSpeed"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="ParkingTicket" package="uml_pruebacorta2" visibility="public" xPosition="1275.0" yPosition="239.0">
+      <Fields>
+        <Field name="car" type="Car" visibility="private"/>
+        <Field name="fechaHoraEntrada" type="LocalDateTime" visibility="private"/>
+        <Field name="fechaHoraSalida" type="LocalDateTime" visibility="private"/>
+        <Field name="horasCobradas" type="int" visibility="private"/>
+        <Field name="tarifaAplicada" type="double" visibility="private"/>
+        <Field name="subtotal" type="double" visibility="private"/>
+        <Field name="ajustePago" type="double" visibility="private"/>
+        <Field name="totalCancelado" type="double" visibility="private"/>
+        <Field name="pago" type="Payment" visibility="private"/>
+        <Field name="cerrado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Car" name="car"/>
+          <Argument type="LocalDateTime" name="fechaHoraEntrada"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="calcularHorasCobradas" returnType="int" visibility="public"/>
+        <Method name="calcularSubtotal" returnType="double" visibility="public"/>
+        <Method name="cerrarTicket" returnType="boolean" visibility="public">
+          <Argument type="LocalDateTime" name="fechaHoraSalida"/>
+          <Argument type="Payment" name="pago"/>
+        </Method>
+        <Method name="getTotalCancelado" returnType="double" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="SinpePayment" package="uml_pruebacorta2" visibility="public" xPosition="717.0" yPosition="661.0">
+      <Fields>
+        <Field name="telefonoOrigen" type="String" visibility="private"/>
+        <Field name="numeroReferencia" type="String" visibility="private"/>
+        <Field name="aprobado" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="telefonoOrigen"/>
+          <Argument type="String" name="numeroReferencia"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="validarReferencia" returnType="boolean" visibility="public"/>
+        <Method name="calcularAjuste" returnType="double" visibility="public">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+        <Method name="calcularTotal" returnType="double" visibility="public">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+        <Method name="procesar" returnType="boolean" visibility="public">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+        <Method name="isAprobado" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="Payment" package="uml_pruebacorta2" visibility="public" xPosition="786.0" yPosition="449.0">
+      <Methods>
+        <Method name="calcularAjuste" returnType="double" visibility="package">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+        <Method name="calcularTotal" returnType="double" visibility="package">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+        <Method name="procesar" returnType="boolean" visibility="package">
+          <Argument type="double" name="subtotal"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Interface name="Vehicle" package="uml_pruebacorta2" visibility="public" xPosition="321.0" yPosition="200.0">
+      <Methods>
+        <Method name="increaseSpeed" returnType="int" visibility="package">
+          <Argument type="int" name="dv"/>
+        </Method>
+        <Method name="decreaseSpeed" returnType="int" visibility="package">
+          <Argument type="int" name="dv"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Enum name="CarType" package="uml_pruebacorta2" visibility="public" xPosition="388.0" yPosition="340.0">
+      <Literals>
+        <Literal name="COMPACT"/>
+        <Literal name="STANDARD"/>
+        <Literal name="LUXURIOUS"/>
+        <Literal name="SPORT"/>
+        <Literal name="SUV"/>
+      </Literals>
+    </Enum>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="uml_pruebacorta2.ParkingTicket" target="uml_pruebacorta2.Payment" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="pago" source="uml_pruebacorta2.ParkingTicket" target="uml_pruebacorta2.Payment" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="uml_pruebacorta2.Car" target="uml_pruebacorta2.Vehicle"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="uml_pruebacorta2.SinpePayment" target="uml_pruebacorta2.Payment"/>
+    <IsRelation name="is" source="uml_pruebacorta2.BMW" target="uml_pruebacorta2.Car"/>
+    <HasRelation name="type" source="uml_pruebacorta2.Car" target="uml_pruebacorta2.CarType" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="uml_pruebacorta2.CardPayment" target="uml_pruebacorta2.Payment"/>
+    <IsRelation name="is" source="uml_pruebacorta2.Ford" target="uml_pruebacorta2.Car"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="uml_pruebacorta2.CashPayment" target="uml_pruebacorta2.Payment"/>
+    <HasRelation name="car" source="uml_pruebacorta2.ParkingTicket" target="uml_pruebacorta2.Car" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
