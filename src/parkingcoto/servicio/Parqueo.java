@@ -99,6 +99,14 @@ public class Parqueo {
             throw new IllegalStateException(
                     "El vehículo " + ticket.getVehiculo().getPlaca() + " ya tiene una estancia pendiente");
         }
+        if (buscarVehiculo(ticket.getVehiculo().getPlaca()).orElse(null) != ticket.getVehiculo()) {
+        throw new IllegalArgumentException(
+            "El vehículo del ticket no está registrado o no es el mismo objeto registrado");
+        }
+        if (buscarEspacio(ticket.getEspacio().getNumero()).orElse(null) != ticket.getEspacio()) {
+        throw new IllegalArgumentException(
+            "El espacio del ticket no está registrado o no es el mismo objeto registrado");
+}
         tickets.put(ticket.getNumero(), ticket);
     }
 
