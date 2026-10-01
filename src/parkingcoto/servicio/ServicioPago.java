@@ -6,6 +6,8 @@ import parkingcoto.pagos.Pago;
 import parkingcoto.pagos.TipoPago;
 import parkingcoto.tickets.EstadoTicket;
 import parkingcoto.tickets.TicketParqueo;
+import parkingcoto.espacios.EstadoEspacio;
+
 
 /**
  * [PERSONA 3]
@@ -20,7 +22,11 @@ public class ServicioPago {
                 parqueo, "El parqueo es obligatorio");
     }
 
-    public Pago pagar(int numeroTicket, TipoPago tipoPago, LocalDateTime fechaHoraPago) {
+    // Valida el ticket, registra el pago y completa la salida liberando el espacio.
+    public Pago pagar(
+            int numeroTicket,
+            TipoPago tipoPago,
+            LocalDateTime fechaHoraPago) {
 
         if (tipoPago == null) {
             throw new IllegalArgumentException(
@@ -41,6 +47,17 @@ public class ServicioPago {
                     "Solo se puede pagar un ticket cerrado");
         }
 
+        if (fechaHoraPago.isBefore(ticket.getFechaHoraSalida())) {
+            throw new IllegalArgumentException(
+                    "El pago no puede ser anterior al cierre del ticket");
+        }
+
+        // Comprueba antes del cobro la condición necesaria para liberar el espacio.
+        if (ticket.getEspacio().getEstado() != EstadoEspacio.OCUPADO) {
+            throw new IllegalStateException(
+                    "El espacio del ticket no está ocupado");
+        }
+
         int idPago = parqueo.generarIdPago();
 
         Pago pago = new Pago(
@@ -51,10 +68,10 @@ public class ServicioPago {
                 tipoPago
         );
 
+        // Si el registro se rechaza, el ticket y el espacio siguen como estaban.
         parqueo.registrarPago(pago);
 
         ticket.marcarPagado();
-
         ticket.getEspacio().liberar();
 
         return pago;

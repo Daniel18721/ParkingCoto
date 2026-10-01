@@ -46,6 +46,7 @@ public class Main {
                 new ServicioConsulta(parqueo);
 
         MenuConsole menu = new MenuConsole(
+                parqueo,
                 servicioIngreso,
                 servicioSalida,
                 servicioPago,

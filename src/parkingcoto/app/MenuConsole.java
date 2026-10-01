@@ -8,25 +8,36 @@ import parkingcoto.servicio.ServicioIngreso;
 import parkingcoto.servicio.ServicioPago;
 import parkingcoto.servicio.ServicioSalida;
 import parkingcoto.tickets.TicketParqueo;
+import parkingcoto.espacios.EspacioParqueo;
+import parkingcoto.espacios.TipoEspacio;
+import parkingcoto.servicio.Parqueo;
+import parkingcoto.vehiculos.Automovil;
+import parkingcoto.vehiculos.Motocicleta;
+import parkingcoto.vehiculos.Vehiculo;
+import parkingcoto.vehiculos.VehiculoCarga;
 
 /**
  * [PERSONA 3]
  * Menu de consola para interactuar con los servicios del parqueo.
  */
 public class MenuConsole {
-
+    
     private final ServicioIngreso servicioIngreso;
     private final ServicioSalida servicioSalida;
     private final ServicioPago servicioPago;
     private final ServicioConsulta servicioConsulta;
     private final Scanner scanner;
+    private final Parqueo parqueo;
 
+    // Recibe los servicios y el parqueo que utilizará el menú.
     public MenuConsole(
+            Parqueo parqueo,
             ServicioIngreso servicioIngreso,
             ServicioSalida servicioSalida,
             ServicioPago servicioPago,
             ServicioConsulta servicioConsulta) {
 
+        this.parqueo = parqueo;
         this.servicioIngreso = servicioIngreso;
         this.servicioSalida = servicioSalida;
         this.servicioPago = servicioPago;
@@ -52,6 +63,9 @@ public class MenuConsole {
                     case 5 -> mostrarVehiculosDentro();
                     case 6 -> mostrarTicketsActivos();
                     case 7 -> mostrarIngresosTotales();
+                    case 8 -> registrarVehiculo();
+                    case 9 -> registrarEspacio();
+                    case 10 -> mostrarOcupacionPorTipo();
                     case 0 -> System.out.println("Saliendo del sistema...");
                     default -> System.out.println("Opcion invalida.");
                 }
@@ -78,6 +92,9 @@ public class MenuConsole {
         System.out.println("5. Ver vehiculos dentro");
         System.out.println("6. Ver tickets activos");
         System.out.println("7. Ver ingresos totales");
+        System.out.println("8. Registrar vehiculo");
+        System.out.println("9. Registrar espacio");
+        System.out.println("10. Ver ocupacion por tipo");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opcion: ");
     }
@@ -196,5 +213,93 @@ public class MenuConsole {
         long total = servicioConsulta.calcularIngresosTotales();
 
         System.out.println("Ingresos totales: C" + total);
+    }
+    
+    // Lee los datos, construye el tipo de vehículo elegido y lo registra.
+    private void registrarVehiculo() {
+
+        System.out.println("Tipo de vehiculo:");
+        System.out.println("1. Automovil");
+        System.out.println("2. Motocicleta");
+        System.out.println("3. Vehiculo de carga");
+        System.out.print("Seleccione: ");
+
+        int tipo = Integer.parseInt(scanner.nextLine());
+
+        if (tipo < 1 || tipo > 3) {
+            throw new IllegalArgumentException(
+                    "Tipo de vehiculo invalido");
+        }
+
+        System.out.print("Placa: ");
+        String placa = scanner.nextLine();
+
+        System.out.print("Marca: ");
+        String marca = scanner.nextLine();
+
+        System.out.print("Modelo: ");
+        String modelo = scanner.nextLine();
+
+        System.out.print("Color: ");
+        String color = scanner.nextLine();
+
+        Vehiculo vehiculo = switch (tipo) {
+            case 1 -> new Automovil(placa, marca, modelo, color);
+            case 2 -> new Motocicleta(placa, marca, modelo, color);
+            case 3 -> new VehiculoCarga(placa, marca, modelo, color);
+            default -> throw new IllegalArgumentException(
+                    "Tipo de vehiculo invalido");
+        };
+
+        parqueo.registrarVehiculo(vehiculo);
+
+        System.out.println("Vehiculo registrado correctamente.");
+        System.out.println(vehiculo);
+    }
+
+    // Lee el identificador y el tipo del espacio y lo registra disponible.
+    private void registrarEspacio() {
+
+        System.out.print("Numero o identificador del espacio: ");
+        String numero = scanner.nextLine();
+
+        System.out.println("Tipo de espacio:");
+        System.out.println("1. Automovil");
+        System.out.println("2. Motocicleta");
+        System.out.println("3. Carga");
+        System.out.print("Seleccione: ");
+
+        int opcion = Integer.parseInt(scanner.nextLine());
+
+        TipoEspacio tipo = switch (opcion) {
+            case 1 -> TipoEspacio.AUTOMOVIL;
+            case 2 -> TipoEspacio.MOTOCICLETA;
+            case 3 -> TipoEspacio.CARGA;
+            default -> throw new IllegalArgumentException(
+                    "Tipo de espacio invalido");
+        };
+
+        EspacioParqueo espacio = new EspacioParqueo(numero, tipo);
+
+        parqueo.registrarEspacio(espacio);
+
+        System.out.println("Espacio registrado correctamente.");
+        System.out.println(espacio);
+    }
+
+    // Muestra el resumen calculado por el servicio para cada tipo de espacio.
+    private void mostrarOcupacionPorTipo() {
+
+        System.out.println("Ocupacion por tipo:");
+
+        for (var resumen : servicioConsulta.consultarOcupacionPorTipo()) {
+            System.out.println(
+                    resumen.getTipo()
+                    + " | Total: " + resumen.getTotal()
+                    + " | Ocupados: " + resumen.getOcupados()
+                    + " | Disponibles: " + resumen.getDisponibles()
+                    + " | Fuera de servicio: " + resumen.getFueraDeServicio()
+            );
+        }
     }
 }

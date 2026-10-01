@@ -14,6 +14,8 @@ import parkingcoto.pagos.TipoPago;
 import parkingcoto.tickets.EstadoTicket;
 import parkingcoto.tickets.TicketParqueo;
 import parkingcoto.vehiculos.Vehiculo;
+import parkingcoto.espacios.EstadoEspacio;
+import parkingcoto.vehiculos.TipoVehiculo;
 
 
 public class Parqueo {
@@ -94,7 +96,34 @@ public class Parqueo {
         if (buscarEspacio(ticket.getEspacio().getNumero()).orElse(null) != ticket.getEspacio()) {
         throw new IllegalArgumentException(
             "El espacio del ticket no está registrado o no es el mismo objeto registrado");
-}
+        }
+        // Impide que dos estancias pendientes compartan el mismo espacio.
+        for (TicketParqueo existente : tickets.values()) {
+            if (existente.estaPendiente()
+                    && existente.getEspacio() == ticket.getEspacio()) {
+
+                throw new IllegalStateException(
+                        "El espacio ya tiene una estancia pendiente");
+            }
+        }
+
+        // ServicioIngreso debe ocupar el espacio antes de registrar el ticket.
+        if (ticket.getEspacio().getEstado() != EstadoEspacio.OCUPADO) {
+            throw new IllegalStateException(
+                    "El espacio debe estar ocupado antes de registrar el ticket");
+        }
+
+        // Verifica compatibilidad incluso si alguien registra el ticket directamente.
+        TipoVehiculo tipoRequerido = switch (ticket.getEspacio().getTipo()) {
+            case AUTOMOVIL -> TipoVehiculo.AUTOMOVIL;
+            case MOTOCICLETA -> TipoVehiculo.MOTOCICLETA;
+            case CARGA -> TipoVehiculo.VEHICULO_CARGA;
+        };
+
+        if (ticket.getVehiculo().getTipoVehiculo() != tipoRequerido) {
+            throw new IllegalArgumentException(
+                    "El espacio no es compatible con el vehículo");
+        }
         tickets.put(ticket.getNumero(), ticket);
     }
     
@@ -116,6 +145,11 @@ public class Parqueo {
         if (ticket.getEstado() != EstadoTicket.CERRADO) {
             throw new IllegalStateException(
                     "Solo se puede pagar un ticket CERRADO (estado: " + ticket.getEstado() + ")");
+        }
+        // Impide registrar un pago con fecha anterior al cierre del ticket.
+        if (pago.getFechaHora().isBefore(ticket.getFechaHoraSalida())) {
+            throw new IllegalArgumentException(
+                    "El pago no puede ser anterior al cierre del ticket");
         }
          for (Pago existente : pagos) {
             if (existente.getId() == pago.getId()) {
