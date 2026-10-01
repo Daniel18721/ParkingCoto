@@ -34,8 +34,10 @@ public class Pago {
     public long getMonto() { return monto; }
     public TipoPago getTipoPago() { return tipoPago; }
 
+
     @Override
     public String toString() {
-        return "Pago #" + id + " [" + tipoPago + "] ₡" + monto + " ticket #" + ticket.getNumero();
+        return "Pago #" + id + " [" + tipoPago + "] C"
+                + monto + " ticket #" + ticket.getNumero();
     }
 }
