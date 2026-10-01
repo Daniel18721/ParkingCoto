@@ -7,6 +7,8 @@ import parkingcoto.vehiculos.Vehiculo;
 
 public final class TarifaPorHoraConTope implements PoliticaTarifa {
 
+    // Obtiene la permanencia y devuelve las horas cobradas,
+    // redondeando cualquier fracción hacia arriba.
     @Override
     public long calcularHorasCobradas(LocalDateTime entrada, LocalDateTime salida) {
         Duration permanencia = obtenerPermanencia(entrada, salida);
@@ -14,6 +16,8 @@ public final class TarifaPorHoraConTope implements PoliticaTarifa {
         return redondearHoras(permanencia);
     }
 
+    // Obtiene la configuración del vehículo, divide la estancia en períodos
+    // diarios y suma sus cobros con el correspondiente al tiempo restante.
     @Override
     public long calcularMonto(Vehiculo vehiculo, LocalDateTime entrada, LocalDateTime salida) {
 
@@ -40,6 +44,8 @@ public final class TarifaPorHoraConTope implements PoliticaTarifa {
         return Math.addExact(montoPeriodosCompletos, montoRestante);
     }
 
+    // Valida las fechas y devuelve el tiempo transcurrido entre ellas,
+    // rechazando una salida anterior a la entrada.
     private Duration obtenerPermanencia(LocalDateTime entrada, LocalDateTime salida) {
 
         Objects.requireNonNull(entrada, "La fecha de entrada es obligatoria.");
@@ -54,6 +60,8 @@ public final class TarifaPorHoraConTope implements PoliticaTarifa {
         return permanencia;
     }
 
+    // Convierte la duración en horas enteras, agregando una hora
+    // si existe alguna fracción, incluso de segundos o nanosegundos.
     private long redondearHoras(Duration permanencia) {
         long segundos = permanencia.getSeconds();
 
@@ -64,6 +72,8 @@ public final class TarifaPorHoraConTope implements PoliticaTarifa {
         return tieneFraccion ? horasCompletas + 1 : horasCompletas;
     }
 
+    // Calcula el cobro de un período y lo limita al máximo diario
+    // cuando su duración alcanza o supera el umbral configurado.
     private long calcularMontoPeriodo( Duration permanencia, ConfiguracionTarifa configuracion) {
 
         long horas = redondearHoras(permanencia);

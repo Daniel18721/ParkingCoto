@@ -45,13 +45,15 @@ public class EspacioParqueo {
         };
     }
     
-    // Si el vehículo
+    // Retorna true si el vehículo cumple con las validaciones necesariar para ser asignado
     public boolean puedeAsignarseA(Vehiculo vehiculo) {
         boolean compatible = esCompatibleCon(vehiculo);
 
         return estado == EstadoEspacio.DISPONIBLE && compatible;
     }
 
+    // Ocupa el espacio si el vehículo existe, el espacio está disponible
+    // y su tipo es compatible con el vehículo.
     public void ocupar(Vehiculo vehiculo) {
 
         Objects.requireNonNull( vehiculo, "El vehículo es obligatorio.");
@@ -59,7 +61,6 @@ public class EspacioParqueo {
         if (estado == EstadoEspacio.OCUPADO) 
             throw new IllegalStateException("El espacio ya está ocupado.");
         
-
         if (estado == EstadoEspacio.FUERA_DE_SERVICIO) 
             throw new IllegalStateException("El espacio está fuera de servicio.");
         
@@ -70,6 +71,7 @@ public class EspacioParqueo {
         estado = EstadoEspacio.OCUPADO;
     }
 
+    // Devuelve un espacio ocupado al estado disponible.
     public void liberar() {
 
         if (estado != EstadoEspacio.OCUPADO) 
@@ -78,6 +80,7 @@ public class EspacioParqueo {
         estado = EstadoEspacio.DISPONIBLE;
     }
 
+    // Retira temporalmente un espacio disponible para impedir su asignación.
     public void ponerFueraDeServicio() {
 
         if (estado != EstadoEspacio.DISPONIBLE) 
@@ -86,6 +89,7 @@ public class EspacioParqueo {
         estado = EstadoEspacio.FUERA_DE_SERVICIO;
     }
 
+    // Reactiva un espacio que estaba fuera de servicio.
     public void habilitar() {
 
         if (estado != EstadoEspacio.FUERA_DE_SERVICIO) 

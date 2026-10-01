@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/tarifas/PoliticaTarifa.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/tarifas/TarifaPorHoraConTope.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/app/MenuConsole.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/tarifas/ConfiguracionTarifa.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/servicio/ServicioIngreso.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/servicio/ServicioSalida.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/servicio/ServicioPago.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/servicio/ServicioConsulta.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/asignacion/AsignadorEspacio.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/asignacion/AsignadorPrimerEspacioCompatible.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/app/Main.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/espacios/EspacioParqueo.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/espacios/EstadoEspacio.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/espacios/TipoEspacio.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/pagos/Pago.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/pagos/TipoPago.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/servicio/Parqueo.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/servicio/ResumenOcupacion.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/tickets/EstadoTicket.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/tickets/TicketParqueo.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/vehiculos/Motocicleta.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/vehiculos/Automovil.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/vehiculos/TipoVehiculo.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/vehiculos/Vehiculo.java</file>
+            <file>file:/C:/Universidad/2026-Ciclo%202/Paradigmas/Proyecto%202/ParkingCoto/src/parkingcoto/vehiculos/VehiculoCarga.java</file>
+        </group>
+    </open-files>
 </project-private>
