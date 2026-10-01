@@ -54,7 +54,7 @@ public class TicketParqueo {
         this.estado = EstadoTicket.CERRADO;
     }
 
-    /** CERRADO -> PAGADO. */
+    //CERRADO -> PAGADO.
     public void marcarPagado() {
         if (estado != EstadoTicket.CERRADO) {
             throw new IllegalStateException(
@@ -67,7 +67,8 @@ public class TicketParqueo {
         return estado == EstadoTicket.ACTIVO;
     }
 
-    /** Estancia pendiente = el vehículo aún no completa el proceso (ACTIVO o CERRADO sin pagar). */
+    /** Estancia pendiente = el vehículo aún no completa el 
+     * proceso (ACTIVO o CERRADO sin pagar). */
     public boolean estaPendiente() {
         return estado == EstadoTicket.ACTIVO || estado == EstadoTicket.CERRADO;
     }

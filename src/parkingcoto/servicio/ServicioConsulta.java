@@ -9,9 +9,8 @@ import parkingcoto.pagos.Pago;
 import parkingcoto.tickets.TicketParqueo;
 import parkingcoto.vehiculos.Vehiculo;
 
-/**
- * Consultas de solo lectura sobre el parqueo
- */
+
+ //Consultas de solo lectura sobre el parqueo
 public class ServicioConsulta {
 
     private final Parqueo parqueo;
@@ -20,7 +19,7 @@ public class ServicioConsulta {
         this.parqueo = parqueo;
     }
 
-    /** Funcionalidad 3: espacios en estado DISPONIBLE. */
+    //Espacios en estado DISPONIBLE.
     public List<EspacioParqueo> consultarEspaciosDisponibles() {
         List<EspacioParqueo> resultado = new ArrayList<>();
         for (EspacioParqueo e : parqueo.consultarEspacios()) {
@@ -31,7 +30,7 @@ public class ServicioConsulta {
         return resultado;
     }
 
-    /** Funcionalidad 3, filtrando por tipo de espacio. */
+    //Filtrando por tipo de espacio.
     public List<EspacioParqueo> consultarEspaciosDisponibles(TipoEspacio tipo) {
         List<EspacioParqueo> resultado = new ArrayList<>();
         for (EspacioParqueo e : consultarEspaciosDisponibles()) {
@@ -43,7 +42,7 @@ public class ServicioConsulta {
     }
 
     /**
-     * Funcionalidad 7: vehículos dentro del parqueo. Según el diseño acordado, un vehículo sigue
+     * Vehículos dentro del parqueo, un vehículo sigue
      * "dentro" mientras su estancia esté pendiente: ticket ACTIVO, o CERRADO sin pagar.
      */
     public List<Vehiculo> consultarVehiculosDentro() {
@@ -56,7 +55,7 @@ public class ServicioConsulta {
         return dentro;
     }
 
-    /** Funcionalidad 14: tickets en estado ACTIVO. */
+    //tickets en estado ACTIVO.
     public List<TicketParqueo> consultarTicketsActivos() {
         List<TicketParqueo> activos = new ArrayList<>();
         for (TicketParqueo t : parqueo.consultarTickets()) {
@@ -67,7 +66,7 @@ public class ServicioConsulta {
         return activos;
     }
 
-    /** Funcionalidad 15: un resumen por cada tipo de espacio. */
+    //Un resumen por cada tipo de espacio.
     public List<ResumenOcupacion> consultarOcupacionPorTipo() {
         List<ResumenOcupacion> resumen = new ArrayList<>();
         for (TipoEspacio tipo : TipoEspacio.values()) {
@@ -93,7 +92,7 @@ public class ServicioConsulta {
         return resumen;
     }
 
-    /** Funcionalidad 13: suma de los montos de los pagos registrados. */
+    //Suma de los montos de los pagos registrados.
     public long calcularIngresosTotales() {
         long total = 0;
         for (Pago p : parqueo.consultarPagos()) {

@@ -30,25 +30,19 @@ public class Parqueo {
         this.nombre = nombre;
     }
 
-    // ------------------------------------------------------------------
-    // Identificadores (acuerdo pendiente del PDF: se generan aquí)
-    // ------------------------------------------------------------------
-
-    /** Siguiente número de ticket. Cada llamada consume un número. */
+    /** Siguiente número de ticket
+     *cada llamada consume un número. */
     public int generarNumeroTicket() {
         return ++ultimoNumeroTicket;
     }
 
-    /** Siguiente identificador de pago. Cada llamada consume un número. */
+    /** Siguiente identificador de pago
+     * cada llamada consume un número. */
     public int generarIdPago() {
         return ++ultimoIdPago;
     }
 
-    // ------------------------------------------------------------------
-    // Registros
-    // ------------------------------------------------------------------
-
-    /** Funcionalidad 1. @throws IllegalArgumentException si es nulo o la placa ya existe */
+    // Si es nulo o la placa ya existe
     public void registrarVehiculo(Vehiculo vehiculo) {
         if (vehiculo == null) {
             throw new IllegalArgumentException("El vehículo es obligatorio");
@@ -60,7 +54,7 @@ public class Parqueo {
         vehiculos.put(placa, vehiculo);
     }
 
-    /** Funcionalidad 2. @throws IllegalArgumentException si es nulo o el número ya existe */
+    /** Si es nulo o el número ya existe */
     public void registrarEspacio(EspacioParqueo espacio) {
         if (espacio == null) {
             throw new IllegalArgumentException("El espacio es obligatorio");
@@ -71,14 +65,8 @@ public class Parqueo {
         espacios.put(espacio.getNumero(), espacio);
     }
 
-    /**
-     * Conserva un ticket nuevo (ACTIVO). Valida la consistencia del conjunto:
-     * vehículo y espacio registrados, número no repetido y vehículo sin estancia pendiente
-     * (un vehículo no puede tener dos tickets activos; un CERRADO sin pagar también cuenta).
-     *
-     * @throws IllegalArgumentException si el ticket es nulo, repetido o referencia objetos no registrados
-     * @throws IllegalStateException    si el ticket no está ACTIVO o el vehículo ya tiene una estancia pendiente
-     */
+    // Guarda un ticket ACTIVO si es válido, no está repetido
+    //y el vehículo no tiene otra estancia pendiente
     public void registrarTicket(TicketParqueo ticket) {
         if (ticket == null) {
             throw new IllegalArgumentException("El ticket es obligatorio");
@@ -109,14 +97,10 @@ public class Parqueo {
 }
         tickets.put(ticket.getNumero(), ticket);
     }
+    
+    // Guarda un pago si el ticket está CERRADO,
+    //no tiene pago previo y el monto coincide con el del ticket.
 
-    /**
-     * Conserva un pago. El ticket debe estar registrado y CERRADO, sin pago previo,
-     * y el identificador no puede repetirse. (ServicioPago marca el ticket como PAGADO después.)
-     *
-     * @throws IllegalArgumentException si es nulo, duplicado o el ticket no está registrado
-     * @throws IllegalStateException    si el ticket no está CERRADO
-     */
     public void registrarPago(Pago pago) {
         if (pago == null) {
             throw new IllegalArgumentException("El pago es obligatorio");
@@ -147,12 +131,12 @@ public class Parqueo {
     // ------------------------------------------------------------------
     // Búsquedas
     // ------------------------------------------------------------------
-
+    
     public Optional<Vehiculo> buscarVehiculo(String placa) {
         return Optional.ofNullable(vehiculos.get(normalizar(placa)));
     }
 
-    public Optional<EspacioParqueo> buscarEspacio(String numero) {               // antes (int numero)
+    public Optional<EspacioParqueo> buscarEspacio(String numero) {
     return Optional.ofNullable(espacios.get(numero == null ? null : numero.strip()));
     }
 
@@ -183,7 +167,7 @@ public class Parqueo {
     }
 
     // ------------------------------------------------------------------
-    // Consultas (copias inmodificables)
+    // Consultas
     // ------------------------------------------------------------------
 
     public List<Vehiculo> consultarVehiculos() {
