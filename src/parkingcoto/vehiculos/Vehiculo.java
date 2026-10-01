@@ -1,37 +1,50 @@
 package parkingcoto.vehiculos;
 
-import parkingcoto.espacios.TipoEspacio;
-import parkingcoto.tarifas.PoliticaTarifa;
+import java.util.Locale;
+import parkingcoto.tarifas.ConfiguracionTarifa;
 
 public abstract class Vehiculo {
-
     private final String placa;
     private final String marca;
     private final String modelo;
     private final String color;
-    private final TipoVehiculo tipoVehiculo;
-    private final PoliticaTarifa politicaTarifa;
 
-    protected Vehiculo(String placa, String marca, String modelo, String color,
-                       TipoVehiculo tipoVehiculo, PoliticaTarifa politicaTarifa) {
-        this.placa = placa;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.color = color;
-        this.tipoVehiculo = tipoVehiculo;
-        this.politicaTarifa = politicaTarifa;
+    protected Vehiculo(String placa, String marca, String modelo, String color) {
+        this.placa = validarTexto(placa, "La placa").toUpperCase(Locale.ROOT);
+        this.marca = validarTexto(marca, "La marca");
+        this.modelo = validarTexto(modelo, "El modelo");
+        this.color = validarTexto(color, "El color");
     }
 
-    public abstract TipoEspacio getTipoEspacioRequerido();
-
-    public double calcularMonto(int horasCobradas) {
-        throw new UnsupportedOperationException("TODO");
+    private String validarTexto(String valor, String nombreCampo) {
+        if (valor == null || valor.isBlank()) 
+            throw new IllegalArgumentException(nombreCampo + " es obligatorio.");
+        
+        return valor.strip();
     }
 
-    public String getPlaca() { return placa; }
-    public String getMarca() { return marca; }
-    public String getModelo() { return modelo; }
-    public String getColor() { return color; }
-    public TipoVehiculo getTipoVehiculo() { return tipoVehiculo; }
-    protected PoliticaTarifa getPoliticaTarifa() { return politicaTarifa; }
+    public final String getPlaca() {
+        return placa;
+    }
+
+    public final String getMarca() {
+        return marca;
+    }
+
+    public final String getModelo() {
+        return modelo;
+    }
+
+    public final String getColor() {
+        return color;
+    }
+
+    public abstract TipoVehiculo getTipoVehiculo();
+
+    public abstract ConfiguracionTarifa getConfiguracionTarifa();
+
+    @Override
+    public String toString() {
+        return getTipoVehiculo() + " | Placa: " + placa + " | Marca: " + marca + " | Modelo: " + modelo + " | Color: " + color;
+    }
 }

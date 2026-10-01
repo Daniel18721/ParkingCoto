@@ -1,20 +1,35 @@
 package parkingcoto.vehiculos;
 
-import parkingcoto.espacios.TipoEspacio;
-import parkingcoto.tarifas.TarifaPorHoraConTope;
+import java.time.Duration;
+import parkingcoto.tarifas.ConfiguracionTarifa;
 
-public class Automovil extends Vehiculo {
+public final class Automovil extends Vehiculo {
+    
+    /*Define la configuración de la tarifa establecida
+    en el enunciado para este vehículo en específico
+    */
+    private static final ConfiguracionTarifa TARIFA = new ConfiguracionTarifa(
+            900,
+            7000,
+            Duration.ofHours(24),
+            Duration.ofHours(10));
 
-    public static final double TARIFA_POR_HORA = 900;
-    public static final double TARIFA_MAXIMA_DIARIA = 7000;
+    public Automovil(
+            String placa,
+            String marca,
+            String modelo,
+            String color) {
 
-    public Automovil(String placa, String marca, String modelo, String color) {
-        super(placa, marca, modelo, color, TipoVehiculo.AUTOMOVIL,
-              new TarifaPorHoraConTope(TARIFA_POR_HORA, TARIFA_MAXIMA_DIARIA));
+        super(placa, marca, modelo, color);
     }
 
     @Override
-    public TipoEspacio getTipoEspacioRequerido() {
-        return TipoEspacio.AUTOMOVIL;
+    public TipoVehiculo getTipoVehiculo() {
+        return TipoVehiculo.AUTOMOVIL;
+    }
+
+    @Override
+    public ConfiguracionTarifa getConfiguracionTarifa() {
+        return TARIFA;
     }
 }

@@ -1,10 +1,11 @@
 package parkingcoto.tarifas;
 
+import java.time.LocalDateTime;
+import parkingcoto.vehiculos.Vehiculo;
 
 public interface PoliticaTarifa {
 
-  
-    double calcularMonto(int horasCobradas);
+    long calcularHorasCobradas(LocalDateTime entrada, LocalDateTime salida);
 
-    double getTarifaPorHora();
+    long calcularMonto(Vehiculo vehiculo, LocalDateTime entrada, LocalDateTime salida);
 }
