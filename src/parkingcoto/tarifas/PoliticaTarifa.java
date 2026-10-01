@@ -5,7 +5,8 @@ import parkingcoto.vehiculos.Vehiculo;
 
 public interface PoliticaTarifa {
 
-    long calcularHorasCobradas(LocalDateTime entrada, LocalDateTime salida);
+    public long calcularHorasCobradas(LocalDateTime fechaHoraEntrada, LocalDateTime salida);
 
-    long calcularMonto(Vehiculo vehiculo, LocalDateTime entrada, LocalDateTime salida);
+    public long calcularMonto(Vehiculo vehiculo, LocalDateTime fechaHoraEntrada, LocalDateTime salida);
+
 }
